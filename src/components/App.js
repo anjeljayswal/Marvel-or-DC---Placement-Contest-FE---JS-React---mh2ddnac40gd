@@ -7,6 +7,26 @@ const App = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
   const [age, setAge] = useState("");
+  const App = () => {
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({});
+  const [age, setAge] = useState("");
+
+  const handleAgeChange = (e) => {
+    setAge(e.target.value);
+  };
+
+  const handleFormSubmit = (data) => {
+    setFormData(data);
+    setStep(4); // Go to summary step
+  };
+
+  const handleStartOver = () => {
+    setStep(1);
+    setAge("");
+    setFormData({});
+  };
+
 
   return (
     <div>
@@ -16,7 +36,7 @@ const App = () => {
           <h1>Step 1: Select Form Type and Enter Age</h1>
           <label>
             Enter your age:
-            <input value={age} />
+            <input value={age} onChange={handleAgeChange} type="number" />
           </label>
           <br />
           <label>
@@ -28,28 +48,24 @@ const App = () => {
             </select>
           </label>
           <br />
+        </div>
+      )}
 
+      {step === 2 && <FormA age={age} onSubmit={handleFormSubmit} />}
+      {step === 3 && <FormB age={age} onSubmit={handleFormSubmit} />}
 
-        </div>
-      )}
-      {step === 2 && (
-        <div>
-          <FormA age={age} />
-        </div>
-      )}
-      {step === 3 && (
-        <div>
-          <FormB age={age} />
-        </div>
-      )}
       {(step === 2 || step === 3) && age ? (
-        <button id="go-back" onClick={() => setStep(1)}>Go Back</button>
+        <button id="go-back" onClick={() => setStep(1)}>
+          Go Back
+        </button>
       ) : null}
 
       {step === 4 && (
         <div>
-          <Summary />
-          <button id="start-over">Start Over</button>
+          <Summary formData={formData} />
+          <button id="start-over" onClick={handleStartOver}>
+            Start Over
+          </button>
         </div>
       )}
     </div>
