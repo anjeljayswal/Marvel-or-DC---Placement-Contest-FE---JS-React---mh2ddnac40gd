@@ -1,16 +1,17 @@
 import { useState } from "react";
 function Summary({ formData }) {
     return (
-        <div id="summary">
-            <h2>Summary</h2>
-            <p>Form Type: </p>
-            <p>Age: </p>
-
-            <p>DC Shows: </p>
-
-            <p>Marvel Shows: </p>
-
-        </div>
+       <div id="summary">
+      <h2>Summary</h2>
+      <p>Form Type: {formData.formType}</p>
+      <p>Age: {formData.age}</p>
+      {formData.formType === "Form A" && (
+        <p>DC Shows: {formData.dcShow}</p>
+      )}
+      {formData.formType === "Form B" && (
+        <p>Marvel Shows: {formData.marvelShows}</p>
+      )}
+    </div>
     );
 }
 export default Summary;
